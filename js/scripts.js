@@ -813,7 +813,7 @@ $(document).ready(function() {
 							_t_itens = ( _t_itens+Number( _iQnt ) );
 							_t_prices = _t_prices+( Number(_iQnt)*Number(_iAmt));
 							_t_weights = _t_weights+( Number(_iQnt)*Number(_iWgt));
-							//console.log( _t_prices );
+							console.log( _t_prices );
 						});
 
 						$('form#checkout table tfoot tr.total td > i').html(_t_prices.toFixed(2).replace('.',','));
@@ -836,14 +836,15 @@ $(document).ready(function() {
 								break;
 							}
 						}
-						if(_i < 2){
-							if(!_max)return;	
+						/*if(_i < 2){
+							if(!_max)return;
+						*/
 							_pricelabel.html(_max.replace('.',','));
 							_amount.val(_max);
-						}else{
+						/*}else{
 							_pricelabel.html(_min.replace('.',','));
 							_amount.val(_min);
-						}
+						}*/
 						calc(_amount);
 					});
 					$('form#checkout table tbody tr td input[name^="itemQuantity"]').keyup(function(){

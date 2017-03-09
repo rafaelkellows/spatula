@@ -25,11 +25,11 @@ if ($oSlct->rowCount() > 0) {
 		$oImage = $oConn->SQLselector("*","galeria","id='".$row_item['capa']."'",'');
 		echo '		<img src="'.( ( $oImage->rowCount() > 0 ) ? $oImage->fetch(PDO::FETCH_ASSOC)['src']: 'images/produtos/logo_util.jpg').'" alt="" />';
 		echo '		<span class="resume">'.$row_item['resume'].'</span>';
-        if($row_item['min_price'] && $row_item['max_price'] ){
-			echo ' 		<p class="lbl"><strong>R$'.$row_item['min_price'].'</strong> <em>2 ou + unidades</em><br><strong>R$'.$row_item['max_price'].'</strong><em> unidade</em></p> ';
+        if( $row_item['max_price'] ){
+			echo ' 		<p class="lbl"><strong>R$'.$row_item['max_price'].'</strong><em> unidade</em></p> ';
 		}
 		echo '		<a class="btn-short" href="./produto.php?id_prod='.$row_item['id'].'&cat='.$row_item['cid'].'&sub='.$row_item['sid'].'" title="[ + ] ver mais">[ + ] ver mais</a>';
-		echo '		<a class="btn-default btn-color-B" href="checkout.php?id_rows='.$row_item['id'].'&min='.$row_item['min_price'].'&max='.$row_item['max_price'].'" title="Solicitar Orçamento"><i class="fa fa-edit"></i></a>';
+		echo '		<a class="btn-default btn-color-B" href="orcamento.php?id_prod='.$row_item['id'].'&cat='.$row_item['cid'].'&sub='.$row_item['sid'].'&capa='.$row_item['capa'].'" title="Solicitar Orçamento"><i class="fa fa-edit"></i></a>';
         if($row_item['min_price'] && $row_item['max_price'] ){
 			echo '		<a class="btn-buy btn-color-E" href="checkout.php?id_row='.$row_item['id'].'&min='.$row_item['min_price'].'&max='.$row_item['max_price'].'&weight='.$row_item['weight'].'" title="Adicionar ao Carrinho"><i class="fa fa-shopping-cart"></i></a>';
 		}

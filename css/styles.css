@@ -318,6 +318,8 @@ main.main_products > aside{ width: 776px; display: inline-block; vertical-align:
 				body.chn-budget main form fieldset input[type="button"]{ cursor:pointer; background: #13bf47; color: #fff; border-color: #13bf47; }
 				main.main_products section.product_features #owl-product_features dl dd input[type=button],
 				main.main_products section.product_features #owl-product_features dl dd a.btn-buy{ line-height: 38px; height: 38px; font-weight: bold; margin-bottom: 5px; -webkit-transition: background 0.3s, color 0.3s; transition: background 0.3s, color 0.3s; width: 214px; text-align: center; box-sizing: border-box; }
+				main.main_products section.product_features #owl-product_features dl dd a.btn-buy.btn-color-E:before{ content: "\f07a"; font: normal normal normal 14px/1 FontAwesome; display: inline-block; vertical-align: middle; margin:-3px 8px 0 -6px; }
+				main.main_products section.product_features #owl-product_features dl dd a.btn-buy.btn-color-B:before{ content: "\f044"; font: normal normal normal 14px/1 FontAwesome; display: inline-block; vertical-align: middle; margin:-3px 8px 0 -6px; }
 				main.main_products section.product_features #owl-product_features dl.added dd a.btn-buy,
 				main section.highlights dl.added dd a.btn-color-E, main section.features dl.added dd a.btn-color-E{ display: none; }
 				

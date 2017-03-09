@@ -69,7 +69,7 @@
 
 						echo '		<span class="resume">'.$row['resume'].'</span>';
 						echo '		<a class="btn-short" href="./produto.php?id_prod='.$row['id'].'&cat='.$row['cid'].'&sub='.$row['sid'].'" title="Ver mais detalhes">[ + ] ver mais</a>';
-						echo '		<a class="btn-default btn-color-B" href="checkout.php?id_rows='.$row['id'].'&min='.$row['min_price'].'&max='.$row['max_price'].'" title="Solicitar Orçamento"><i class="fa fa-edit"></i></a>';
+						echo '		<a class="btn-default btn-color-B" href="orcamento.php?id_prod='.$row['id'].'&cat='.$row['cid'].'&sub='.$row['sid'].'&capa='.$row['capa'].'" title="Solicitar Orçamento"><i class="fa fa-edit"></i></a>';
 	                    
 	                    if($row['min_price'] && $row['max_price'] ){
 							echo '		<a class="btn-buy btn-color-E" href="checkout.php?id_row='.$row['id'].'&min='.$row['min_price'].'&max='.$row['max_price'].'&weight='.$row['weight'].'" title="Adicionar ao Carrinho"><i class="fa fa-shopping-cart"></i></a>';
