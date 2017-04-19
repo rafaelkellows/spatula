@@ -54,7 +54,7 @@ function checkout(){
 				}
 				if(checkOutForm.length){
 					var _tr = '<tr>';
-						_tr += '	<input name="min_price" type="hidden" value="'+data[x][1].substring(data[x][1].indexOf('=')+1).replace(',','.')+'" />';
+						_tr += '	<input name="min_price" type="hidden" value="'+data[x][2].substring(data[x][2].indexOf('=')+1).replace(',','.')+'" />';
 						_tr += '	<input name="max_price" type="hidden" value="'+data[x][2].substring(data[x][2].indexOf('=')+1).replace(',','.')+'" />';
 						_tr += '	<td class="center">'+data[x][3]+' <input id="itemId'+x+'" name="itemId'+x+'" type="hidden" value="'+data[x][3]+'"></td>';
 						_tr += '	<td>';
@@ -69,7 +69,7 @@ function checkout(){
 						_tr += '		</span>';
 						_tr += '	</td>';
 
-						_tr += '	<td class="center">R$<i>'+(( data[x][7] > 1 ) ? data[x][1].substring(data[x][1].indexOf('=')+1) : data[x][2].substring(data[x][2].indexOf('=')+1))+'</i> <input id="itemAmount'+x+'" name="itemAmount'+x+'" type="hidden" value="'+(( data[x][7] > 1 ) ? data[x][1].substring(data[x][1].indexOf('=')+1).replace(',','.') : data[x][2].substring(data[x][2].indexOf('=')+1).replace(',','.'))+'"></td>';
+						_tr += '	<td class="center">R$<i>'+(( data[x][7] > 1 ) ? data[x][2].substring(data[x][2].indexOf('=')+1) : data[x][2].substring(data[x][2].indexOf('=')+1))+'</i> <input id="itemAmount'+x+'" name="itemAmount'+x+'" type="hidden" value="'+(( data[x][7] > 1 ) ? data[x][2].substring(data[x][2].indexOf('=')+1).replace(',','.') : data[x][2].substring(data[x][2].indexOf('=')+1).replace(',','.'))+'"></td>';
 						_tr += '	<td><a class="btn-color-E" href="javascript:void(0);" title="Excluir produto da lista"><i class="fa fa-close"></i></a></td>';
 						_tr += '	<input id="itemWeight'+x+'" name="itemWeight'+x+'" type="hidden" value="1000">';
 						_tr += '</tr>';

@@ -39,7 +39,7 @@ class AutenticadorEmBanco extends Autenticador {
     public function logar($login, $password) {
  
         $pdo = new PDO('mysql:dbname=db_teste;host=db-teste.mysql.uhserver.com', 'spatula', 'Spatul@2016');
-        //$pdo = new PDO('mysql:dbname=db_spatula;host=localhost', 'root', '');
+        //$pdo = new PDO('mysql:dbname=db_teste;host=localhost', 'root', '');
         $sess = Sessao::instanciar();
  
         $sql = "select * from usuarios where usuarios.login ='{$login}' and usuarios.password = '{$password}'";

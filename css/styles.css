@@ -122,7 +122,7 @@ header{ background: #f2f2f2; min-height: 185px; }
 		header aside form#login-form{ position: fixed; width: 100%; left: 0; top:0; height: 100%; z-index: 9999; margin: 0; display: none; }
 			header aside form#login-form:after{ content: ''; background: #000; opacity: .7; width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
 				header aside form#login-form fieldset, .msgBox p{ width: 300px !important; margin:5% auto 0; z-index: 9; background: #fff; border-radius: 10px; padding:20px; box-sizing: border-box; position: relative; }
-					header aside form#login-form fieldset legend{ padding:0 0 15px; font-family: 'aaux_proboldregular'; font-size: 18px; font-weight: normal; color: #b72126; letter-spacing: -0.3px; display: inline-block; }
+					header aside form#login-form fieldset legend{ padding:0 0 15px; font-family: 'aaux_proboldregular'; font-size: 18px; font-weight: normal; color: #b72126; letter-spacing: -0.3px; float: left; width: 100%; }
 					header aside form#login-form fieldset a.fa-close{ position: absolute; right: 10px; top: 10px; }
 						header aside form#login-form fieldset a.fa-close span{ font-size: 0; }
 					header aside form#login-form fieldset label{ display: block; font-size: 14px; padding: 0 0 5px; }

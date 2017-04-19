@@ -39,6 +39,7 @@ class AutenticadorEmBanco extends Autenticador {
         try{
             // Faz conexão com banco de daddos
             $pdo = new PDO('mysql:dbname=db_users;host=db-users.mysql.uhserver.com', 'rafaelkellows', 'Spatul@2016');
+            //$pdo = new PDO('mysql:dbname=db_users;host=localhost', 'root', '');
         }catch(PDOException $e){
             // Caso ocorra algum erro na conexão com o banco, exibe a mensagem
             echo 'Falha ao conectar no banco de dados: '.$e->getMessage();
@@ -74,6 +75,7 @@ class AutenticadorEmBanco extends Autenticador {
         try{
             // Faz conexão com banco de daddos
             $pdo = new PDO('mysql:dbname=db_users;host=db-users.mysql.uhserver.com', 'rafaelkellows', 'Spatul@2016');
+            //$pdo = new PDO('mysql:dbname=db_users;host=localhost', 'root', '');
         }catch(PDOException $e){
             // Caso ocorra algum erro na conexão com o banco, exibe a mensagem
             echo 'Falha ao conectar no banco de dados: '.$e->getMessage();

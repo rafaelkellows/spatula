@@ -1,3 +1,6 @@
+<?php
+//error_reporting (E_ALL & ~ E_NOTICE & ~ E_DEPRECATED);
+?>
 <!DOCTYPE html>
 <html>
 	<?php
@@ -55,7 +58,7 @@
                     while ( $row = $oSlct->fetch(PDO::FETCH_ASSOC) ) {
 						echo '<dl>';
 						$title = ( strlen($row['title']) <= 35 ) ? $row['title'] : substr($row['title'], 0,35).'...' ;
-						echo '	<dt id="'.$row['id'].'"><strong>Cód. '.$row['id'].'</strong><a href="./produto.php?id_prod='.$row['id'].'&cat='.$row['cid'].'&sub='.$row['sid'].'">'.$title.'</a></dt>';
+						echo '	<dt id="'.$row['id'].'"><strong>CÃ³d. '.$row['id'].'</strong><a href="./produto.php?id_prod='.$row['id'].'&cat='.$row['cid'].'&sub='.$row['sid'].'">'.$title.'</a></dt>';
 						echo '	 <dd>';
 						echo '		<span class="label"><i class="fa fa-check-circle" aria-hidden="true"></i>Item Adicionado</span>';
 						$oImage = $oConn->SQLselector("*","galeria","id=".$row['capa'],'');
@@ -69,7 +72,7 @@
 
 						echo '		<span class="resume">'.$row['resume'].'</span>';
 						echo '		<a class="btn-short" href="./produto.php?id_prod='.$row['id'].'&cat='.$row['cid'].'&sub='.$row['sid'].'" title="Ver mais detalhes">[ + ] ver mais</a>';
-						echo '		<a class="btn-default btn-color-B" href="orcamento.php?id_prod='.$row['id'].'&cat='.$row['cid'].'&sub='.$row['sid'].'&capa='.$row['capa'].'" title="Solicitar Orçamento"><i class="fa fa-edit"></i></a>';
+						echo '		<a class="btn-default btn-color-B" href="orcamento.php?id_prod='.$row['id'].'&cat='.$row['cid'].'&sub='.$row['sid'].'&capa='.$row['capa'].'" title="Solicitar OrÃ§amento"><i class="fa fa-edit"></i></a>';
 	                    
 	                    if($row['min_price'] && $row['max_price'] ){
 							echo '		<a class="btn-buy btn-color-E" href="checkout.php?id_row='.$row['id'].'&min='.$row['min_price'].'&max='.$row['max_price'].'&weight='.$row['weight'].'" title="Adicionar ao Carrinho"><i class="fa fa-shopping-cart"></i></a>';

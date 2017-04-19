@@ -753,7 +753,7 @@ $(document).ready(function() {
 					}
 					if(checkOutForm.length){
 						var _tr = '<tr>';
-							_tr += '	<input name="min_price" type="hidden" value="'+data[x][1].substring(data[x][1].indexOf('=')+1).replace(',','.')+'" />';
+							_tr += '	<input name="min_price" type="hidden" value="'+data[x][2].substring(data[x][2].indexOf('=')+1).replace(',','.')+'" />';
 							_tr += '	<input name="max_price" type="hidden" value="'+data[x][2].substring(data[x][2].indexOf('=')+1).replace(',','.')+'" />';
 							_tr += '	<input id="itemWeight'+x+'" name="itemWeight'+x+'" type="hidden" value="'+data[x][3].substring(data[x][3].indexOf('=')+1)+'">';
 							_tr += '	<input name="weight" type="hidden" value="'+data[x][3].substring(data[x][3].indexOf('=')+1)+'" />';
@@ -770,7 +770,7 @@ $(document).ready(function() {
 							_tr += '		</span>';
 							_tr += '	</td>';
 
-							_tr += '	<td class="center">R$<i>'+(( data[x][8] > 1 ) ? data[x][1].substring(data[x][1].indexOf('=')+1) : data[x][2].substring(data[x][2].indexOf('=')+1))+'</i> <input id="itemAmount'+x+'" name="itemAmount'+x+'" type="hidden" value="'+(( data[x][8] > 1 ) ? data[x][1].substring(data[x][1].indexOf('=')+1).replace(',','.') : data[x][2].substring(data[x][2].indexOf('=')+1).replace(',','.'))+'"></td>';
+							_tr += '	<td class="center">R$<i>'+(( data[x][8] > 1 ) ? data[x][2].substring(data[x][2].indexOf('=')+1) : data[x][2].substring(data[x][2].indexOf('=')+1))+'</i> <input id="itemAmount'+x+'" name="itemAmount'+x+'" type="hidden" value="'+(( data[x][8] > 1 ) ? data[x][2].substring(data[x][2].indexOf('=')+1).replace(',','.') : data[x][2].substring(data[x][2].indexOf('=')+1).replace(',','.'))+'"></td>';
 							_tr += '	<td><a class="btn-color-E" href="javascript:void(0);" title="Excluir produto da lista"><i class="fa fa-close"></i></a></td>';
 							_tr += '</tr>';
 						checkOutForm.find('table tbody').prepend(_tr);
