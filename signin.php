@@ -15,7 +15,7 @@
 		//$aut->expulsar();
 		}
 
-		$page_title = 'Faça seu Orçamento';
+		$page_title = 'Cadastre-se';
 		include 'inc/head.php';
 	?>		
 	<body class="chn-signin">
@@ -101,7 +101,7 @@
 			<aside>
 				<ul>
 					<li><a href="./">Home</a></li>
-					<li>Faça seu Orçamento</li>
+					<li>Cadastre-se</li>
 				</ul>
 				<dl>
 					<dt><h2 class="bgTitle"><?php echo $pag_title ?></h2></dt>

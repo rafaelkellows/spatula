@@ -1,7 +1,8 @@
 <?php 
     //header("Content-Type: text/plain");
     require_once 'connector.php';
-    $servername = 'http://'.$_SERVER['SERVER_NAME'].'/homolog';
+    //$servername = 'http://'.$_SERVER['SERVER_NAME'];
+    $servername = 'http://www.spatula.com.br';
     $ref = $_REQUEST["ref"];
     $name = ( isset($_REQUEST["name"] ) ) ? utf8_decode($_REQUEST["name"]) : 0 ;
     $email = ( isset($_REQUEST["email"] ) ) ? $_REQUEST["email"] : 0 ;
@@ -45,7 +46,7 @@
           /* abaixo as veriaveis principais, que devem conter em seu formulario*/
           $assunto  = 'Confirmação de Cadastro';
 
-          $mensagemConcatenada = '<div style="border:1px solid #EDEDED; padding:10px; text-align:center;">'; 
+          $mensagemConcatenada = '<div style="border:1px solid #EDEDED; padding:10px; text-align:center; font-size:14px; font-family: Trebuchet MS; ">'; 
           $mensagemConcatenada .= ' <a href="'.$servername.'" target="_blank"><img src="'.$servername.'/images/logoSpatula.png" alt=""></a><br/><br/>'; 
           $mensagemConcatenada .= ' <strong style="font-size:18px;">Confirmação de Cadastro</strong><br/>'; 
           $mensagemConcatenada .= ' <strong>'.utf8_decode($name).'</strong>, você realizou seu cadastro através do site '.$servername.'.<br/>'; 
@@ -92,7 +93,7 @@
         $sqlSct = $oConn->SQLselector("name","tbl_accounts","email='".$e."' AND key_token='".$k_token."' AND status=1",'');
         if( $sqlSct->rowCount() === 1){
           setcookie('msg', '2', (time() + 5), '/'); //5 seconds
-          header('location: ./homolog/');
+          header('location: ./');
           return;
         }
         //------------------------------
@@ -185,5 +186,69 @@
             echo $mensagemRetorno;  
         }
         return;
+    }
+    if ($ref=="forgetPassword") {
+        $sqlSct = $oConn->SQLselector("*","tbl_accounts","email='".$email."'",'');
+        if( $sqlSct->rowCount() === 1){
+          $rowSct = $sqlSct->fetch(PDO::FETCH_ASSOC);
+          /*** INÍCIO - ENVIO DE EMAIL ***/
+          $enviaFormularioParaNome = $rowSct['name'];
+          $enviaFormularioParaEmail = $email;
+
+          $caixaPostalServidorNome = 'Spatula';
+          $caixaPostalServidorEmail = 'desenvolvimento@spatula.com.br';
+          $caixaPostalServidorSenha = 'Sp@tul@2016';
+
+
+          /* abaixo as veriaveis principais, que devem conter em seu formulario*/
+          $assunto  = 'Solicitação de Re-envio de Senha';
+
+          $mensagemConcatenada = '<div style="border:1px solid #EDEDED; padding:10px; text-align:center;">'; 
+          $mensagemConcatenada .= ' <a href="'.$servername.'" _target="_blank"><img src="'.$servername.'/images/logoSpatula.png" alt=""></a><br/><br/>'; 
+          $mensagemConcatenada .= ' <strong style="font-size:18px;">Reenvio de Senha</strong><br/>'; 
+          $mensagemConcatenada .= ' <strong>'.$rowSct['name'].'</strong>, você realizou a solicitação do envio da sua senha.<br/>'; 
+          $mensagemConcatenada .= ' Abaixo segue suas credenciais cadastradas no site:<br/>'; 
+          $mensagemConcatenada .= ' <strong>Login</strong>: '.$rowSct['login'].'<br/>'; 
+          $mensagemConcatenada .= ' <strong>Senha</strong>: '.$rowSct['password'].'<br/><br/>'; 
+          $mensagemConcatenada .= ' <a href="'.$servername.'" _target="_blank">'.$servername.'</a><br/><br/>'; 
+          $mensagemConcatenada .= ' <strong>Obs.:</strong> Caso você não tenha solicitado nenhum reenvio de senha pedimos que entre em contato com nossa equipe para gerarmos um novo token de segurança.<br/><br/>'; 
+          $mensagemConcatenada .= ' Obrigado, a equipe da Spatula agradece sua visita.'; 
+          $mensagemConcatenada .= '</div>'; 
+          /*********************************** A PARTIR DAQUI NAO ALTERAR ************************************/ 
+          require_once('PHPMailer-master/PHPMailerAutoload.php');
+            
+          $mail = new PHPMailer();
+
+          $mail->IsSMTP();
+          $mail->SMTPAuth  = true;
+          $mail->Charset   = 'utf8_decode()';
+          $mail->Host  = 'smtp.'.substr(strstr($caixaPostalServidorEmail, '@'), 1);
+          $mail->Port  = '587';
+          $mail->Username  = $caixaPostalServidorEmail;
+          $mail->Password  = $caixaPostalServidorSenha;
+          $mail->From  = $caixaPostalServidorEmail;
+          $mail->FromName  = utf8_decode($caixaPostalServidorNome);
+          $mail->IsHTML(true);
+          $mail->Subject  = utf8_decode($assunto);
+          $mail->Body  = utf8_decode($mensagemConcatenada);
+
+          $mail->AddBCC('rafaelkellows@hotmail.com', 'Rafael S. Kellows');
+          $mail->AddAddress($enviaFormularioParaEmail,utf8_decode($enviaFormularioParaNome));
+          
+          if(!$mail->Send()){
+            setcookie('msg', '6', (time() + 5), '/'); //5 seconds
+            header('location: ./');
+          }else{
+            setcookie('msg', '4', (time() + 5), '/'); //5 seconds
+            header('location: ./');
+          }
+          echo $mensagemRetorno;
+          return;
+        }else{
+          setcookie('msg', '5', (time() + 5), '/'); //5 seconds
+          setcookie('eml', $email, (time() + 5), '/'); //5 seconds
+          header('location: ./');
+          return;
+        }
     }
 ?>

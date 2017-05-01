@@ -4,7 +4,6 @@
 	    require_once 'login/usuario.php';
 	    require_once 'login/autenticador.php'; 
 	    require_once 'login/sessao.php';
-		require_once 'PagSeguroLibrary/PagSeguroLibrary.php'; 
 
 	    $aut = Autenticador::instanciar();
 	     

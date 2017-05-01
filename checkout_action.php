@@ -1,8 +1,8 @@
 <?php
 	//header("Content-Type: text/xml, charset=ISO-8859-1");
-	$email = 'rafaelkellows86@gmail.com';
-	$token = '775F623166EA4E168B5485AB8771EE83';
-	$url = 'https://ws.sandbox.pagseguro.uol.com.br/v2/checkout/?email=' . $email . '&token=' . $token;
+	$email = 'rustoncm@gmail.com';
+	$token = '8F896EB3AE88414583D811BA8C64084C';
+	$url = 'https://ws.pagseguro.uol.com.br/v2/checkout/?email=' . $email . '&token=' . $token;
 	/*$email = 'rafaelkellows86@gmail.com';
 	$token = '6FDCC8149781403E864BE9D666C0E270';
 	$url = 'https://ws.pagseguro.uol.com.br/v2/checkout/?email=' . $email . '&token=' . $token;*/

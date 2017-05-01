@@ -1,12 +1,14 @@
 <?php
 	header("Content-Type: text/plain, charset=ISO-8859-1");
   require_once 'connector.php';
-	$email = 'rafaelkellows86@gmail.com';
-	$token = '775F623166EA4E168B5485AB8771EE83';
+  /*$email = 'rustoncm@gmail.com';
+  $token = '8F896EB3AE88414583D811BA8C64084C';*/
+  $email = 'rafaelkellows86@gmail.com';
+  $token = '775F623166EA4E168B5485AB8771EE83';
   $transaction = $_REQUEST['tcode'];
   $id_user = ( isset($_REQUEST["id_user"] ) ) ? $_REQUEST["id_user"] : 0 ;
   $logo_path = ( isset($_REQUEST["logo_path"] ) ) ? $_REQUEST["logo_path"] : 0 ;
-	$url = 'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/' . $transaction . '?email=' . $email . '&token=' . $token;
+	$url = 'https://ws.pagseguro.uol.com.br/v2/transactions/' . $transaction . '?email=' . $email . '&token=' . $token;
 	
   $curl = curl_init($url);
   curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);

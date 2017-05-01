@@ -25,7 +25,7 @@
 		<!--[if lt IE 9]>
 		  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		<!--
+
 		<script type="text/javascript">var switchTo5x=true;</script>
 		<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 		<script type="text/javascript">stLight.options({publisher: "c40dcd16-0f3e-4d40-81b5-237a219a994f", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
@@ -39,5 +39,5 @@
 		  ga('send', 'pageview');
 
 		</script>
-		-->
+		
 	</head>

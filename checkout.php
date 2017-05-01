@@ -25,13 +25,19 @@
 			include 'inc/nav.php';
 		?>		
 		<main class="main_content">
+			<section class="checkout msgBox">
+				<p>
+					<strong title="Aguarde">Aguarde...</strong><br>
+					<span>Seu pedido está sendo processado.</span>
+				</p>
+			</section>		
 			<aside>
 				<ul>
 					<li><a href="./">Home</a></li>
-					<li>Carrinho de Compras - Checkout</li>
+					<li>Carrinho de Compras</li>
 				</ul>
 				<dl>
-					<dt><h2 class="bgTitle">CARRINHO DE COMPRAS - CHECKOUT</h2></dt>
+					<dt><h2 class="bgTitle">CARRINHO DE COMPRAS</h2></dt>
 					<dd>
 						
 							<?php 
@@ -94,7 +100,9 @@
 								<input type="hidden" name="transUserName" value="" />
 								<fieldset>
 									<label><strong>Selecione o arquivo</strong></label>
-									<input type="file" name="file" id="file" />
+									<input type="file" name="file" id="file" /><br><br>
+									<input type="checkbox" name="no_image" id="no_image" style="width:25px" value="true" /> 
+									<label for="no_image" style="margin-top: -11px; display: inline-block; vertical-align: middle;"><strong>Não tenho imagem para enviar</strong></label>
 									<div id="image_preview">
 										<p id='loading' >loading..</p>
 										<div id="message"></div>

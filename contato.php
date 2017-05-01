@@ -44,8 +44,8 @@
 							<p>
 								Entre em contato pelo nossos contatos do SAC:<br>
 								<strong>E-mail:</strong> <a href="mailto:contato@spatula.com.br">contato@spatula.com.br</a><br>
-								<strong>Telefone:</strong> <a href="tel.:+55 11 2847.4991">+55 11 2847.4991</a><br>
-								<strong>WhatsApp:</strong> <a href="tel.:+55 11 94206.0111">+55 11 94206.0111</a>
+								<strong>Telefone:</strong> <a href="tel.:+551128474991">+55 11 2847.4991</a><br>
+								<strong>WhatsApp:</strong> <a href="tel.:+5511942060111">+55 11 94206.0111</a>
 							</p>
 						</article>
 					</dd>

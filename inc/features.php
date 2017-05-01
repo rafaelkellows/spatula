@@ -30,7 +30,7 @@ if ($oSlct->rowCount() > 0) {
 		}
 		echo '		<a class="btn-short" href="./produto.php?id_prod='.$row_item['id'].'&cat='.$row_item['cid'].'&sub='.$row_item['sid'].'" title="[ + ] ver mais">[ + ] ver mais</a>';
 		echo '		<a class="btn-default btn-color-B" href="orcamento.php?id_prod='.$row_item['id'].'&cat='.$row_item['cid'].'&sub='.$row_item['sid'].'&capa='.$row_item['capa'].'" title="Solicitar Orçamento"><i class="fa fa-edit"></i></a>';
-        if($row_item['min_price'] && $row_item['max_price'] ){
+        if( $row_item['max_price'] ){
 			echo '		<a class="btn-buy btn-color-E" href="checkout.php?id_row='.$row_item['id'].'&min='.$row_item['min_price'].'&max='.$row_item['max_price'].'&weight='.$row_item['weight'].'" title="Adicionar ao Carrinho"><i class="fa fa-shopping-cart"></i></a>';
 		}
 		echo '	</dd>';
@@ -38,8 +38,8 @@ if ($oSlct->rowCount() > 0) {
 	}
     echo '	</div>';
     echo '	<nav>';
-    echo '		<a href="javascript:void(0);" title="previous"><</a>';
-    echo '		<a href="javascript:void(0);" title="next">></a>';
+    echo '		<a class="prev" href="javascript:void(0);" title="previous"><</a>';
+    echo '		<a class="next" href="javascript:void(0);" title="next">></a>';
     echo '	</nav>';
 	echo '</section>';
 }

@@ -2,6 +2,7 @@
 			$email =  ( isset($_REQUEST["e"] ) ) ? $_REQUEST["e"] : 0 ;
 			$key_token =  ( isset($_REQUEST["k_token"] ) ) ? $_REQUEST["k_token"] : 0 ;
 			$msg =  ( !empty($_COOKIE['msg'] ) ) ? $_COOKIE['msg'] : null ;
+			$eml =  ( !empty($_COOKIE['eml'] ) ) ? $_COOKIE['eml'] : null ;
 
 			if($email===0 && $key_token===0){
 				switch ($msg) {
@@ -39,13 +40,44 @@
 						$mensagemConcatenada = '<div class="msgBox" style="display:block;">';
 						$mensagemConcatenada .= '	<p class="msg">';
 						$mensagemConcatenada .= '		<strong>Confirmação de Cadastro não efetuada</strong><br><br>';
-						$mensagemConcatenada .= '		<span><strong>'.$usuario->getName().'</strong>,<br>você ainda não confirmou o seu cadastro. Um link foi enviado por e-mail após realizar seu cadastro. <a href="signin_action.php?ref=cadastreSe&e='.$usuario->getEmail().'&k_token='.$usuario->getKToken().'">OK, eu estou ciente do cadastro e confirmo clicando aqui?</a></span>';
+						$mensagemConcatenada .= '		<span><strong>'.$usuario->getName().'</strong>,<br>você ainda não confirmou o seu cadastro através do link que foi enviado por e-mail após realizar seu cadastro! <a href="signin_action.php?ref=cadastreSe&e='.$usuario->getEmail().'&k_token='.$usuario->getKToken().'">Estou ciente do cadastro e confirmo clicando aqui?</a></span>';
+						$mensagemConcatenada .= '		<a class="btn-default btn-color-E" href="javascript:void(0);"><span>SAIR</span></a>';
+						$mensagemConcatenada .= '	</p>';
+						$mensagemConcatenada .= '</div>';
+						echo $mensagemConcatenada;
+						break;
+			    case '4':
+						$mensagemConcatenada = '<div class="msgBox" style="display:block;">';
+						$mensagemConcatenada .= '	<p class="msg">';
+						$mensagemConcatenada .= '		<strong>Reenvio de Senha</strong><br><br>';
+						$mensagemConcatenada .= '		<span><strong>Parabéns</strong>, você realizou a solicitação do re-envio da sua senha com sucesso!<br>Veja no seu email suas credenciais cadastradas no site.</span>';
+						$mensagemConcatenada .= '		<a class="btn-default btn-color-C" href="javascript:void(0);"><span>OK</span></a>';
+						$mensagemConcatenada .= '	</p>';
+						$mensagemConcatenada .= '</div>';
+						echo $mensagemConcatenada;
+						break;
+			    case '5':
+						$mensagemConcatenada = '<div class="msgBox" style="display:block;">';
+						$mensagemConcatenada .= '	<p class="msg">';
+						$mensagemConcatenada .= '		<strong>Reenvio de Senha</strong><br><br>';
+						$mensagemConcatenada .= '		<span><strong>Sinto muito</strong>, o email <b>'.$eml.'</b> não consta em nossos bancos.</span>';
+						$mensagemConcatenada .= '		<a class="btn-default btn-color-C" href="javascript:void(0);"><span>OK</span></a>';
+						$mensagemConcatenada .= '	</p>';
+						$mensagemConcatenada .= '</div>';
+						echo $mensagemConcatenada;
+						break;
+			    case '6':
+						$mensagemConcatenada = '<div class="msgBox" style="display:block;">';
+						$mensagemConcatenada .= '	<p class="msg">';
+						$mensagemConcatenada .= '		<strong>Erro</strong><br><br>';
+						$mensagemConcatenada .= '		<span><strong>Algo deu errado</strong>. Pedimos desculpas e tente novamente recarregando sua página.</span>';
 						$mensagemConcatenada .= '		<a class="btn-default btn-color-C" href="javascript:void(0);"><span>OK</span></a>';
 						$mensagemConcatenada .= '	</p>';
 						$mensagemConcatenada .= '</div>';
 						echo $mensagemConcatenada;
 						break;
 				}
+
 				setcookie('msg', '-1', (time() + 1), '/'); //5 seconds
 			}else{
 				header('location: signin_action.php?ref=cadastreSe&e='.$email.'&k_token='.$key_token);
@@ -70,7 +102,7 @@
 						}else{ 
 							if( !$usuario->getId() ){
 					?>
-					<li class="block f-right notlogged"><a class="fa fa-shopping-cart btn-color-E" href="checkout.php" title="Carrinho de Compras"><em>0</em></a></li>
+					<li class="block f-right notl3ogged"><a class="fa fa-shopping-cart btn-color-E" href="checkout.php" title="Carrinho de Compras"><em>0</em></a></li>
 					<li class="block f-right"><a class="btn-signin btn-color-C" href="signin.php" title="Cadastre-se"><em>Cadastre-se</em></a></li>
 					<li class="block f-right"><a class="btn-login btn-color-A" href="javascript:void(0);" title="Entrar"><em>Entrar</em></a></li>
 					<?php 								
@@ -83,7 +115,7 @@
 					<li class="block f-right notlogged"><a class="fa fa-shopping-cart btn-color-E" href="checkout.php" title="Carrinho de Compras"><em>0</em></a></li>
 					<li class="block f-right"><a class="btn-edit btn-color-C" href="signin.php" title="Cadastre-se"><em>Meus Dados</em></a></li>
 					<li class="block f-right"><a class="btn-shopping-basket btn-color-D" href="transaction.php" title="Meus Pedidos"><em>Meus Pedidos</em></a></li>
-					<li class="block f-right"><a class="btn-logout btn-color-A" href="login/controle.php?acao=sair" title="Sair"><em>Sair</em></a></li>
+					<li class="block f-right"><a class="btn-logout btn-color-A" href="login/controle.php?acao=sair&curr=<?php print $_SERVER['REQUEST_URI'] ?>" title="Sair"><em>Sair</em></a></li>
 					<?php 
 							} 
 						}
@@ -102,7 +134,7 @@
 						<label class="forget" for="forget">E-mail</label>
 						<input type="text" class="forget" placeholder="e-mail" id="forget" name="forget" value="" />
 						<input type="hidden" id="ref" name="ref" value="forgetPassword" />
-						<button class="btn-color-A send" id="enviar" name="enviar" type="submit" value="enviar">enviar</button>
+						<button class="btn-color-A send" id="enviar" name="acao" type="submit" value="enviar">enviar</button>
 
 						<a class="fa fa-frown-o" href="javascript:void(0);" title="Clique aqui para solicitar uma nova senha."><span>esqueci minha senha</span></a>
 

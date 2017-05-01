@@ -32,8 +32,8 @@ $(document).ready(function() {
 			slideSpeed : 500,
 			rewindNav : false
 		});
-		$("main section.features nav a").click(function(){ owl.trigger('owl.next'); });
-		$("main section.features nav a").first().click(function(){ owl.trigger('owl.prev'); });
+		$("main section.features nav a.next").click(function(){ owl.trigger('owl.next'); });
+		$("main section.features nav a.prev").first().click(function(){ owl.trigger('owl.prev'); });
 	}
 
 	$('.main_products nav dl dt span').click(function(){
@@ -528,25 +528,25 @@ $(document).ready(function() {
 						formCad.find('fieldset > ul, fieldset > h3, fieldset > br').fadeOut('slow', function(){
 							formCad.find('p.msg').html('<strong>E-mail já cadastrado!</strong><br />O e-mail <em>'+ email.val() +'</em> já está sendo utilizado por algum usuário. Tente outro por favor.').fadeIn('slow');
 							$(this).remove();
-						});
+						}).closest('article').find('>p').fadeOut('slow');
 					}
 					if(data == 22){
 						formCad.find('fieldset > ul, fieldset > h3, fieldset > br').fadeOut('slow', function(){
 							formCad.find('p.msg').html('<strong>Cadastro realizado com sucesso!</strong><br /><em>'+ name.val() +'</em>, a equipe da Spatula agradece seu interesse.<br>Você receberá no email (<strong>'+email.val()+'</strong>) um link para a <strong>Confirmação de Cadastro</strong>.').fadeIn('slow');
 							$(this).remove();
-						});
+						}).closest('article').find('>p').fadeOut('slow');
 					}
 					if(data == 2){
 						formCad.find('fieldset > ul, fieldset > h3, fieldset > br').fadeOut('slow', function(){
 							formCad.find('p.msg').html('<strong>Cadastro atualizado com sucesso!</strong><br /><em>'+ name.val() +'</em>, a equipe da Spatula agradece seu interesse em manter os dados atualizados.').fadeIn('slow');
 							$(this).remove();
-						});
+						}).closest('article').find('>p').fadeOut('slow');
 					}
 					if(data == 0){
 						formCad.find('fieldset > ul, fieldset > h3, fieldset > br').fadeOut('slow', function(){
 							formCad.find('p.msg').html('<strong>Formulário não enviado!</strong><br />Acontenceu algo errado durante o processamento. Tente novamente por favor.').fadeIn('slow');
 							$(this).remove();
-						});
+						}).closest('article').find('>p').fadeOut('slow');
 					}
 				},
 				error: function(jqXHR, textStatus, errorThrown){
@@ -554,7 +554,7 @@ $(document).ready(function() {
 					formCad.find('fieldset > ul, fieldset > h3, fieldset > br').fadeOut('slow', function(){
 						formCad.find('p.msg').html('<strong>Formulário não enviado!</strong><br />Tente novamente mais tarde por favor.').fadeIn('slow');
 						$(this).remove();
-					});
+					}).closest('article').find('>p').fadeOut('slow');;
 				}
 	    });
 		}
@@ -895,6 +895,7 @@ $(document).ready(function() {
 			var itens = 0,
 				user_id = $("body.chn-checkout input[name=user_id]"),
 				file = $("body.chn-checkout input[type=file]"),
+				no_image = $("body.chn-checkout input[name=no_image]"),
 				currency = $("body.chn-checkout input[name=currency]"),
 				reference = $("body.chn-checkout input[name=reference]"),
 				senderName = $("body.chn-checkout input[name=senderName]"),
@@ -911,17 +912,26 @@ $(document).ready(function() {
 				shippingAddressState = $("body.chn-checkout input[name=shippingAddressState]"),
 				shippingAddressCountry = $("body.chn-checkout input[name=shippingAddressCountry]");
 			
-				$("body.chn-checkout input[name=transReference]").val(reference);
-				$("body.chn-checkout input[name=transUserName]").val(senderName);
+				$("body.chn-checkout input[name=transReference]").val(reference.val());
+				$("body.chn-checkout input[name=transUserName]").val(senderName.val());
 
 			var dataString = 'reference='+reference.val() + '&file='+ file.val() + '&coin_currency='+ currency.val() + '&senderName='+ senderName.val() + '&senderAreaCode='+ senderAreaCode.val() +  '&senderPhone='+ senderPhone.val() +  '&senderEmail='+ senderEmail.val() +  '&shippingType='+ shippingType.val() +  '&shippingAddressStreet='+ shippingAddressStreet.val() +  '&shippingAddressNumber='+ shippingAddressNumber.val() +  '&shippingAddressDistrict='+ shippingAddressDistrict.val() +  '&shippingAddressComplement='+ shippingAddressComplement.val() +  '&shippingAddressPostalCode='+ shippingAddressPostalCode.val() +  '&shippingAddressCity='+ shippingAddressCity.val() +  '&shippingAddressState='+ shippingAddressState.val() +  '&shippingAddressCountry='+ shippingAddressCountry.val();
-			if( file.val().length == 0){
-          $('form#checkout p.msg').html('Por favor, envie-nos um arquivo em JPG, JPEG ou PNG de até 300kb.').fadeIn('slow');
-					hideMessage($('form#checkout'),2500);
+			
+			/*Obrigando enviar imagem de Logo*/
+			if( file.val().length == 0 && !no_image.is(':checked')){
+          //$('form#checkout p.msg').html('Por favor, envie-nos um arquivo em JPG, JPEG ou PNG de até 300kb.').fadeIn('slow');
+          $('.checkout').fadeIn('slow',function(){
+        		$('html,body').click(function(){
+							$('.checkout').fadeOut('fast');
+						})
+          }).find('p strong').html('Atenção').parent().find('> span').html('Você precisa nos enviar um arquivo em JPG, JPEG ou PNG de até 300kb.<br><br> Caso não, utilize a opção <b>Não tenho imagem para enviar</b>.<br><a style="text-align:center;" class="btn-default btn-color-C" href="javascript:void(0);">Fechar</a>');
+					
+					hideMessage($('form#checkout'),5000);
+					
 					$('form#checkout table tfoot tr td input').removeAttr('disabled');
-				//$("body.chn-checkout main.main_content > aside form#checkout fieldset div#image_preview #message").html("Por favor, envie-nos um arquivo em JPG, JPEG ou PNG de até 300kb.");
 				return;
 			}
+
 			$('form#checkout table tbody tr').each(function(index){
 				dataString+="&itemId"+(index+1)+"="+$(this).find('input[name^="itemId"]').val();
 				dataString+="&itemDescription"+(index+1)+"="+$(this).find('input[name^="itemDescription"]').val();
@@ -930,18 +940,35 @@ $(document).ready(function() {
 				dataString+="&itemWeight"+(index+1)+"="+$(this).find('input[name^="itemWeight"]').val();
 				itens+=1;
 			});
+			if(itens==1){
+        $('.checkout').fadeIn('slow',function(){
+      		$('html,body').click(function(){
+						$('.checkout').fadeOut('fast');
+					})
+        }).find('p strong').html('Atenção').parent().find('> span').html('Seu carrinho de compras está vazio! Veja alguns de nossos presentes clicando no botão abaixo! <a style="text-align:center;" class="btn-default btn-color-C" href="produtos.php">Nossos Presentes</a>');
+        return;
+			}
 			dataString+="&itens="+itens+"&id_user="+user_id.val();
 			console.log(dataString);
 			//return;
+			$('form#checkout table tfoot tr td input[type=submit]').prop('disabled','disabled').val('...carregando PagSeguro... ');
+			$('.checkout').fadeIn('slow').find('p strong').html('Aguarde... carregando PagSeguro');
+			
 			$.ajax({
 				url : 'checkout_action.php',
 				data : dataString,
 				success:function(data, textStatus, jqXHR){
-
+					
+					$('.checkout').find('p strong').html('Processo de Pagamento').parent().find('> span').html('Você está no ambiente de pagamento do PagSeguro.');
 					//CALL PAG SEGURO LIGHTBOX
-					PagSeguroLightbox({ code: data },{
-						success : function(transactionCode) {	
+					PagSeguroLightbox(
+						{ 
+							code: data 
+						},
+						{
+							success : function(transactionCode) {	
 							console.log("success - transactionCode: " + transactionCode);
+							$('.checkout').find('p strong').html('Processo de Transação').parent().find('> span').html('O Código do seu pedido é:'+transactionCode);
 							//SENT LOGO MARCA TO SERVER
 							$.ajax({
 								url: "ajax_php_file.php", // Url to which the request is send
@@ -953,12 +980,14 @@ $(document).ready(function() {
 								success: function(data)   // A function to be called if request succeeds
 								{
 									if(data!='0'&&data!='1'&&data!='2'){
+										$('.checkout').find('p strong').html('Finalizando Processo de Transação').parent().find('> span').html('Inserindo os dados do seu pedido no banco da Spatula para que você possa acompanhar no link <b>meus pedidos</b>.');
 										//Insert the TRANSITION on USER ACCOUNT
 										$.ajax({
 											method : "GET",
 											url : 'transaction_action.php?tcode='+transactionCode+'&logo_path='+data+'&id_user='+user_id.val(),
 											success:function(trans_data, textStatus, jqXHR){
 												console.log('trans_data: '+trans_data);
+												$('.checkout').find('p strong').html('Processo de Transação Finalizado').parent().find('> span').html('Você será redirecionado para a tela de <b>meus pedidos</b>. Aguarde por favor.');
 												$.removeCookie('itens', { path: '/' });
 												location.href = 'transaction.php';
 											},
@@ -973,12 +1002,15 @@ $(document).ready(function() {
 						},
 						abort : function() {
 							console.log("abort");
-							$('form#checkout table tfoot tr td input').prop('disabled','');
+							$('form#checkout table tfoot tr td input').prop('disabled',false);
+							$('form#checkout table tfoot tr td input[type=submit]').prop('disabled',false).val('Finalizar e comprar com PagSeguro');
+							$('.checkout').fadeOut('fast');
 						}
 					});
 				},
 				error: function(jqXHR, textStatus, errorThrown){
-					console.log(data);
+					console.log('Erro = ' + errorThrown);
+					$('form#checkout table tfoot tr td input[type=submit]').prop('disabled','disabled').val('Finalizar e comprar com PagSeguro');
 				}
 	    });
 		});
@@ -1076,9 +1108,13 @@ $(document).ready(function() {
 		});
 
 	});
-		//var myParam = location.search.split('tcode=')[1];
-
-
-
 	
+	//var myParam = location.search.split('tcode=')[1];
+	/*
+	$('.checkout').fadeIn('slow',function () {
+		$('html,body').click(function(){
+			/*$('.checkout').fadeOut('fast');
+		})
+	});
+	*/
 });

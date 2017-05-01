@@ -273,7 +273,7 @@
                     <div class="rowElem">
                         <label>Peso:</label>
                         <div class="formRight">
-                            <input type="text" style="width:15%" name="weight" id="weight" value="<?php print $row['weight']; ?>"> <span style="font-size:11px;">O PagSeguro utiliza o peso dos produtos para o cálculo do frete.</span>
+                            <input type="text" style="width:15%" name="weight" id="weight" value="<?php print $row['weight']; ?>"> <span style="font-size:11px; margin-top: 4px; display: block; float: right; width: 420px;">O PagSeguro utiliza o peso total dos produtos para o cálculo do frete. Mínimo 0,300Kg e Máximo 10Kg por cada item. <a href="https://pagseguro.uol.com.br/para_seu_negocio/envio-facil.jhtml#rmcl" target="_blank">Veja + detalhes</a></span>
                         </div>
                         <div class="fix"></div>
                     </div>

@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<?php
+	    require_once 'login/usuario.php';
+	    require_once 'login/autenticador.php'; 
+	    require_once 'login/sessao.php';
+
+	    $aut = Autenticador::instanciar();
+	     
+	    $usuario = null;
+	    if ($aut->esta_logado()) {
+	        $usuario = $aut->pegar_usuario();
+	    }
+	    else {
+			//$aut->expulsar();
+		}
 		$page_title = 'Nossos Presentes - Busca';
 		include 'inc/head.php';
 	?>		
@@ -25,11 +38,11 @@
 					$search = ( isset($_REQUEST["search"]) && !empty($_REQUEST['search']) ) ? $_REQUEST["search"] : '';
 					$oSlctProds = $oConn->SQLselector("*","produtos","status = 1 AND ((title LIKE '%".$search."%') OR (resume LIKE '%".$search."%') OR (description LIKE '%".$search."%') OR ('%".$search."%')) ",'modified DESC');
 	                if ($oSlctProds->rowCount() > 0) {
-	                	if(!empty($search)){
-							echo '<dl><dt><h2 class="bgTitle">Resultado da busca por: <font style="color:#333; font-size:22px;">'.$_REQUEST["search"].'</font></h2></dt></dl>';
+	                	if($search){
+							echo '<dl><dt><h2 class="bgTitle">Encontrado(s) <font style="color:#333; font-size:22px;">'.$oSlctProds->rowCount().'</font> produto(s) com <font style="color:#333; font-size:22px;">'.$_REQUEST["search"].'</font> na descrição.</h2></dt></dl>';
 		                	echo '<section class="product_features">';
 						}else{
-	                		echo '<dl><dt><h2 class="bgTitle">Não encontrei nenhum produto cadastrado com o texto mencionado.<font style="color:#333; font-size:22px;">'.$_REQUEST["search"].'</font></h2></dt></dl>';
+	                		echo '<dl><dt><h2 class="bgTitle">Não encontrei nenhum produto cadastrado com o texto mencionado.<font style="color:#333; font-size:22px;">'.$search.'</font></h2></dt></dl>';
 		                	echo '<section class="product_features">';
 		                	echo '	<p><strong>Veja abaixo o que separamos para você:</strong><br><br></p>';
 						}
@@ -79,7 +92,7 @@
 	                    echo '</section>';
 	                }else{
 						$oSlctProds = $oConn->SQLselector("*","produtos","status = 1",'title ASC');
-	                	echo '<dl><dt><h2 class="bgTitle">Não há produto cadastrado com: <font style="color:#333; font-size:22px;">'.$_REQUEST["search"].'</font></h2></dt></dl>';
+	                	echo '<dl><dt><h2 class="bgTitle">Não há produto cadastrado com <font style="color:#333; font-size:22px;">'.$_REQUEST["search"].'</font> na descrição.</h2></dt></dl>';
 		                echo '<section class="product_features">';
 		                echo '	<p><strong>Veja abaixo o que separamos para você:</strong><br><br></p>';
 	                	echo '	<div class="filtering">';

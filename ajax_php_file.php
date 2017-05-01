@@ -1,7 +1,7 @@
 <?php
 	header("Content-Type: text/plain, charset=ISO-8859-1");
     $servername = 'http://'.$_SERVER['SERVER_NAME'];
-    $u_name = $_REQUEST['transReference'];
+    $u_name = $_REQUEST['transUserName'];
     $transaction = $_REQUEST['transReference'];
 	
 	if(isset($_FILES["file"]["type"])){
@@ -53,12 +53,20 @@
 				$mensagemConcatenada = '<div style="border:1px solid #EDEDED; padding:10px; text-align:center;">'; 
 				$mensagemConcatenada .= ' <a href="'.$servername.'" target="_blank"><img src="'.$servername.'/images/logoSpatula.png" alt=""></a><br/><br/>'; 
 				//$mensagemConcatenada .= ' <strong style="font-size:18px;">Logo/Marca</strong><br/>'; 
-				$mensagemConcatenada .= ' <strong>'.utf8_decode($u_name).'</strong>, realizou uma compra no site.<br/>'; 
-				$mensagemConcatenada .= ' <strong style="font-size:16px">Código do Pedido:</strong><br>'; 
-				$mensagemConcatenada .= ' '.$transaction.'<br/><br>'; 
-				$mensagemConcatenada .= ' <strong style="font-size:16px">Imagem do logo da marca:</strong><br><br>'; 
-				$mensagemConcatenada .= ' <a href="'.$servername.'/v2/upload/'.$NewFileName.'" target="_blank"><img src="'.$servername.'/v2/upload/'.$NewFileName.'" alt=""></a><br/><br/>'; 
-				$mensagemConcatenada .= ' Obrigado, a equipe da Spatula agradece sua visita.'; 
+				$mensagemConcatenada .= ' Olá. <strong>'.utf8_decode($u_name).'</strong>, realizou uma compra no site. <br>Abaixo segue os dados do Pedido:<br/>'; 
+				
+				$mensagemConcatenada .= '<table style="font-family:Trebuchet MS; font-size:14px;" cellspacing="0" cellpadding="0" border="0">';
+				$mensagemConcatenada .= '	<tr>';
+				$mensagemConcatenada .= '		<td><strong>Código do Pedido:</strong></td>';
+				$mensagemConcatenada .= '		<td>'.$transaction.'</td>';
+				$mensagemConcatenada .= '	</tr>';
+				$mensagemConcatenada .= '	<tr>';
+				$mensagemConcatenada .= '		<td><strong>Link para o Logo:</strong></td>';
+				$mensagemConcatenada .= '		<td><a href="'.$servername.'/upload/'.$NewFileName.'" target="_blank"><img src="'.$servername.'/upload/'.$NewFileName.'" width="100" alt=""></a></td>';
+				$mensagemConcatenada .= '	</tr>';
+				$mensagemConcatenada .= '</table>';
+
+				$mensagemConcatenada .= ' Veja os <a href="https://pagseguro.uol.com.br/transaction/search.jhtml" target="_blank">detalhes dessa transação</a> no PagSeguro.'; 
 				$mensagemConcatenada .= '</div>'; 
 				/*********************************** A PARTIR DAQUI NAO ALTERAR ************************************/ 
 
@@ -89,11 +97,73 @@
 				}
 				//echo $mensagemRetorno;
 				return;
-
 			}
 		}
 		}else{
 			echo '1';	//;"Tipo ou Tamanho inválido. Porfavor, siga as instruções.";
 		}
+	}else{
+		echo $_REQUEST['no_image'];
+		return;
+
+		/*** INÍCIO - ENVIO DE EMAIL ***/
+		$enviaFormularioParaNome = utf8_decode($name);
+		$enviaFormularioParaEmail = $email;
+
+		$caixaPostalServidorNome = 'Spatula';
+		$caixaPostalServidorEmail = 'desenvolvimento@spatula.com.br';
+		$caixaPostalServidorSenha = 'Sp@tul@2016';
+
+		/* abaixo as veriaveis principais, que devem conter em seu formulario*/
+		$assunto  = 'Pedido: '.$transaction.' - Logo/Marca';
+
+		$mensagemConcatenada = '<div style="border:1px solid #EDEDED; padding:10px; text-align:center;">'; 
+		$mensagemConcatenada .= ' <a href="'.$servername.'" target="_blank"><img src="'.$servername.'/images/logoSpatula.png" alt=""></a><br/><br/>'; 
+		//$mensagemConcatenada .= ' <strong style="font-size:18px;">Logo/Marca</strong><br/>'; 
+		$mensagemConcatenada .= ' Olá. <strong>'.utf8_decode($u_name).'</strong>, realizou uma compra no site. <br>Abaixo segue os dados do Pedido:<br/>'; 
+		
+		$mensagemConcatenada .= '<table style="font-family:Trebuchet MS; font-size:14px;" cellspacing="0" cellpadding="0" border="0">';
+		$mensagemConcatenada .= '	<tr>';
+		$mensagemConcatenada .= '		<td><strong>Código do Pedido:</strong></td>';
+		$mensagemConcatenada .= '		<td>'.$transaction.'</td>';
+		$mensagemConcatenada .= '	</tr>';
+		$mensagemConcatenada .= '	<tr>';
+		$mensagemConcatenada .= '		<td><strong>Link para o Logo:</strong></td>';
+		$mensagemConcatenada .= '		<td>Não há imagem</td>';
+		$mensagemConcatenada .= '	</tr>';
+		$mensagemConcatenada .= '</table>';
+
+		$mensagemConcatenada .= ' Veja os <a href="https://pagseguro.uol.com.br/transaction/search.jhtml" target="_blank">detalhes dessa transação</a> no PagSeguro.'; 
+		$mensagemConcatenada .= '</div>'; 
+		/*********************************** A PARTIR DAQUI NAO ALTERAR ************************************/ 
+
+		require_once('PHPMailer-master/PHPMailerAutoload.php');
+
+		$mail = new PHPMailer();
+
+		$mail->IsSMTP();
+		$mail->SMTPAuth  = true;
+		$mail->Charset   = 'utf8_decode()';
+		$mail->Host  = 'smtp.'.substr(strstr($caixaPostalServidorEmail, '@'), 1);
+		$mail->Port  = '587';
+		$mail->Username  = $caixaPostalServidorEmail;
+		$mail->Password  = $caixaPostalServidorSenha;
+		$mail->From  = $caixaPostalServidorEmail;
+		$mail->FromName  = utf8_decode($caixaPostalServidorNome);
+		$mail->IsHTML(true);
+		$mail->Subject  = utf8_decode($assunto);
+		$mail->Body  = utf8_decode($mensagemConcatenada);
+
+		$mail->AddBCC('rafaelkellows@hotmail.com', 'Rafael S. Kellows');
+		$mail->AddAddress($enviaFormularioParaEmail,utf8_decode($enviaFormularioParaNome));
+
+		if(!$mail->Send()){
+		//$mensagemRetorno = '0';
+		}else{
+		//$mensagemRetorno = '2';
+		}
+		//echo $mensagemRetorno;
+		return;
+
 	}
 ?>

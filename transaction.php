@@ -49,6 +49,10 @@
 													$id_user = $usuario->getId();
 													$oConn = New Conn();
 													$sqlSct = $oConn->SQLselector("*","tbl_requests","id_user='".$id_user."'",'created desc');
+													/*$row = $sqlSct->fetch(PDO::FETCH_ASSOC);
+													if(!$row){
+														echo '<tr><td colspan="2" style="padding-top: 25px">Nenhum item comprado no Site.</td></tr>';
+													}*/
 													while ( $row = $sqlSct->fetch(PDO::FETCH_ASSOC) ) {
 														echo '<tr>';
 														echo '	<td>';
